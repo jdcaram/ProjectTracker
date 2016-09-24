@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title_block %}
+            Project Tracking
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
+</head>
+<body>
+    <div>
+        {% block body_block %}
+
+        {% endblock %}
+    </div>
+
+    <div>
+        {% block footer_block %}
+
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    User's Tasks
+{% endblock %}
+
+{% block body_block %}
+    <table>
+        <tr>
+          {% for task in tasks %}
+              <td>
+                <table class="container">
+                    <tr>
+                        <td>ID/PK: </td>
+                        <td><span class="title">{{ task.pk }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Name: </td>
+                        <td><span class="title">{{ task.name }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td><span class="item-about item-details">{{ task.description }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Order: </td>
+                        <td><span class="item-currency">{{ task.order }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Status: </td>
+                        <td><span class="item-currency">{{ task.get_status_display }}</span></td>
+                    </tr>
+                    {% if task.user %}
+                        <tr>
+                            <td>User: </td>
+                            <td><span class="item-currency">{{ task.user.username }}</span></td>
+                        </tr>
+                    {% endif %}
+                </table>
+              </td>
+          {% endfor %}
+        </tr>
+    </table>
+{% endblock %}

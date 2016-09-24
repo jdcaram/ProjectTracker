@@ -1,0 +1,14 @@
+#-*- mode: conf -*-
+
+# Djed App
+Django==1.10.1
+djangorestframework==3.4.7      # BSD: https://pypi.python.org/pypi/djangorestframework
+django-model-utils==2.5.2         # BSD: https://pypi.python.org/pypi/django-model-utils
+django-vanilla-views==1.0.4
+django-filter==0.14.0
+django-cors-headers==1.1.0
+
+Pillow==3.3.1                 # Standard PIL License: https://pypi.python.org/pypi/Pillow
+
+# psycopg2==2.6.2
+# bcrypt==3.1.0
