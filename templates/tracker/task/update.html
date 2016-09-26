@@ -51,9 +51,13 @@
             </tr>
         </table>
 
-
-      <input type="submit" value="Save" />
-
+        <table>
+            <tr>
+                <td><input type="submit" value="Save" /></td>
+                <td><a href="{% url 'task-delete' pk=task.pk %}">Delete</a></td>
+                <td><a href="{% url 'task-list' %}"><button id="cancel-btn">Cancel</button></a></td>
+            </tr>
+        </table>
 
     </form>
 

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    User's Tasks
+{% endblock %}
+
+{% block body_block %}
+    <table>
+        <tr>
+          {% for task in tasks %}
+              <td>
+                <table class="container">
+                    <tr>
+                        <td>ID/PK: </td>
+                        <td>
+                            <a href="{% url 'task-update' pk=task.pk %}"><span>{{ task.pk }}</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Name: </td>
+                        <td><span>{{ task.name }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td><span>{{ task.description }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Order: </td>
+                        <td><span>{{ task.order }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Status: </td>
+                        <td><span>{{ task.get_status_display }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>User: </td>
+                        <td>
+                            {% if task.user %}
+                                <span>{{ task.user.username }}</span>
+                            {% else %}
+                                &nbsp;
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {% if task.status != 3 %}
+                                <button data-taskid="{{task.id}}" class="complete_button" type="button">Complete</button>
+                            {% else %}
+                                &nbsp;
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+              </td>
+          {% endfor %}
+        </tr>
+    </table>
+{% endblock %}
+
+{% block footer_block %}
+
+
+    <table>
+        <tr>
+            <td>
+                <a href="{% url 'task-add' %}"><button id="add-btn">Add Task</button></a>
+            </td>
+            <td>
+                <button id="about-btn">Show Dumb Popup</button>
+            </td>
+        </tr>
+    </table>
+
+
+
+{% endblock %}
+

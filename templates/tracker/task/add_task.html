@@ -33,12 +33,13 @@
                 </tr>
             </table>
 
-            <input type="submit" name="submit" value="Create Task" />
+            <table>
+                <tr>
+                    <td><input type="submit" name="submit" value="Create Task" /></td>
+                    <td><a href="{% url 'task-list' %}"><button id="cancel-btn">Cancel</button></a></td>
+                </tr>
+            </table>
         </form>
     </div>
 
-    <br/>
-    <a href="{% url 'task-add' %}"><button  class="btn btn-primary" id="about-btn">Add New Task</button></a>
-
-    <a href="{% url 'task-list' %}"><button  class="btn btn-primary" id="cancel-btn">Cancel</button></a>
 {% endblock %}

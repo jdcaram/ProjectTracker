@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Update Task</h1>
+    <h1>Delete Task</h1>
     <h2>Task: {{ task.id }}</h2>
     <h3><a href="{% url 'task-list' %}">Back</a></h3>
     {% if error_message %}
@@ -15,7 +15,7 @@
         </p>
     {% endif %}
 
-    <form method="post" id="main-form" class="row-masthead none">
+    <form method="post" id="main-form" >
         {% csrf_token %}
       {{ form.errors }}
 
@@ -31,19 +31,19 @@
             </tr>
             <tr>
                 <td>Name</td>
-                <td>{{ form.name }}</td>
+                <td>{{ task.name }}</td>
             </tr>
             <tr>
                 <td>Description</td>
-                <td>{{ form.description }}</td>
+                <td>{{ task.description }}</td>
             </tr>
             <tr>
                 <td>Order</td>
-                <td>{{ form.order }}</td>
+                <td>{{ task.order }}</td>
             </tr>
             <tr>
                 <td>Status</td>
-                <td>{{ form.status }}</td>
+                <td>{{ task.get_status_display }}</td>
             </tr>
             <tr>
                 <td>User</td>
@@ -51,9 +51,12 @@
             </tr>
         </table>
 
-
-      <input type="submit" value="Delete" />
-
+        <table>
+            <tr>
+                <td><input type="submit" value="Delete" /></td>
+                <td><a href="{% url 'task-list' %}"><button id="cancel-btn">Cancel</button></a></td>
+            </tr>
+        </table>
 
     </form>
 

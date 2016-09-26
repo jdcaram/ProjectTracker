@@ -74,9 +74,23 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-class TaskListView(vanilla.ListView):
+class TaskMixin(object):
+    """
+    Add user to the context
+    """
+    def get_context_data(self, *args, **kwargs):
+        context = super(TaskMixin, self).get_context_data(*args, **kwargs)
+
+        if hasattr(self, "request") and self.request.user and self.request.user.is_authenticated():
+            context.update({
+                'username': self.request.user.username,
+            })
+        return context
+
+
+class TaskListView(TaskMixin, vanilla.ListView):
     model = Task
-    template_name = 'tracker/task/index.html'
+    template_name = 'tracker/task/list_task.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(TaskListView, self).get_context_data(*args, **kwargs)
@@ -93,31 +107,22 @@ class TaskListView(vanilla.ListView):
         return qs
 
 
-def add_task(request):
-    form = TaskForm()
+class TaskCreateView(TaskMixin, vanilla.CreateView):
+    model = Task
+    template_name = 'tracker/task/add_task.html'
+    form_class = TaskForm
+    success_url = "/tracker/task/"
 
-    # A HTTP POST?
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreateView, self).form_valid(form)
 
-        if form.is_valid():
-            # Save the new task to the database - make sure to set the User
-            form.instance.user = request.user
-            form.save(commit=True)
-
-            return HttpResponseRedirect(reverse('task-list'))
-        else:
-            # The supplied form contained errors -
-            # just print them to the terminal.
-            print(form.errors)
-
-    # Will handle the bad form, new form, or
-    # no form supplied cases.
-    # Render the form with error messages (if any).
-    return render(request, 'tracker/task/add_task.html', {'form': form})
+    def get_context_data(self, *args, **kwargs):
+        context = super(TaskCreateView, self).get_context_data(*args, **kwargs)
+        return context
 
 
-class TaskUpdateView(vanilla.UpdateView):
+class TaskUpdateView(TaskMixin, vanilla.UpdateView):
     model = Task
     template_name = 'tracker/task/update.html'
     form_class = TaskForm
@@ -128,7 +133,7 @@ class TaskUpdateView(vanilla.UpdateView):
         return context
 
 
-class TaskDeleteView(vanilla.DeleteView):
+class TaskDeleteView(TaskMixin, vanilla.DeleteView):
     model = Task
     template_name = 'tracker/task/delete.html'
     form_class = TaskForm

@@ -14,6 +14,20 @@
 
 </head>
 <body>
+
+    <div align="right">
+        {% block header_block %}
+            {% if username %}
+                <table>
+                    <tr>
+                        <td>{{ username }}</td>
+                        <td><a href="{% url 'logout' %}"><button id="logout-btn">Logout</button></a></td>
+                    </tr>
+                </table>
+            {% endif %}
+        {% endblock %}
+    </div>
+
     <div>
         {% block body_block %}
 
