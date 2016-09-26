@@ -87,6 +87,13 @@ class TaskMixin(object):
             })
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('login'))
+        else:
+            return super(TaskMixin, self).dispatch(request, *args, **kwargs)
+
 
 class TaskListView(TaskMixin, vanilla.ListView):
     model = Task
