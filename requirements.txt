@@ -7,6 +7,7 @@ django-model-utils==2.5.2         # BSD: https://pypi.python.org/pypi/django-mod
 django-vanilla-views==1.0.4
 django-filter==0.14.0
 django-cors-headers==1.1.0
+django-bootstrap-toolkit==2.15.0
 
 Pillow==3.3.1                 # Standard PIL License: https://pypi.python.org/pypi/Pillow
 

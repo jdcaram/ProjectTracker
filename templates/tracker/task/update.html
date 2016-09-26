@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Add Task
+{% endblock %}
+
+{% block body_block %}
+    <h1>Update Task</h1>
+    <h2>Task: {{ task.id }}</h2>
+    <h3><a href="{% url 'task-list' %}">Back</a></h3>
+    {% if error_message %}
+        <p>
+            <strong>{{ error_message }}</strong>
+        </p>
+    {% endif %}
+
+    <form method="post" id="main-form" class="row-masthead none">
+        {% csrf_token %}
+      {{ form.errors }}
+
+      {% for field in form.hidden_fields %}
+      {{ field.errors }}
+      {{ field }}
+      {% endfor %}
+
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>{{ task.pk }}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{ form.name }}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{ form.description }}</td>
+            </tr>
+            <tr>
+                <td>Order</td>
+                <td>{{ form.order }}</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>{{ form.status }}</td>
+            </tr>
+            <tr>
+                <td>User</td>
+                <td>{{ task.user.username }}</td>
+            </tr>
+        </table>
+
+
+      <input type="submit" value="Save" />
+
+
+    </form>
+
+
+{% endblock %}

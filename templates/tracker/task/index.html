@@ -13,7 +13,9 @@
                 <table class="container">
                     <tr>
                         <td>ID/PK: </td>
-                        <td><span class="title">{{ task.pk }}</span></td>
+                        <td>
+                            <a href="{% url 'task-update' pk=task.pk %}"><span class="title">{{ task.pk }}</span></a>
+                        </td>
                     </tr>
                     <tr>
                         <td>Name: </td>
@@ -29,7 +31,7 @@
                     </tr>
                     <tr>
                         <td>Status: </td>
-                        <td><span class="item-currency">{{ task.get_status_display }}</span></td>
+                        <td><span class="item-status">{{ task.get_status_display }}</span></td>
                     </tr>
                     {% if task.user %}
                         <tr>
@@ -37,9 +39,23 @@
                             <td><span class="item-currency">{{ task.user.username }}</span></td>
                         </tr>
                     {% endif %}
+                    <tr>
+                        <td>
+                            <button id="complete_button" data-taskid="{{task.id}}" class="btn btn-primary  btn-sm" type="button">Complete</button>
+                        </td>
+                    </tr>
                 </table>
               </td>
           {% endfor %}
         </tr>
     </table>
 {% endblock %}
+
+{% block footer_block %}
+
+
+    <button  class="btn btn-primary" id="about-btn">Help</button>
+
+
+{% endblock %}
+

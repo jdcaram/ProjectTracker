@@ -115,3 +115,39 @@ def add_task(request):
     # no form supplied cases.
     # Render the form with error messages (if any).
     return render(request, 'tracker/task/add_task.html', {'form': form})
+
+
+class TaskUpdateView(vanilla.UpdateView):
+    model = Task
+    template_name = 'tracker/task/update.html'
+    form_class = TaskForm
+    success_url = "/tracker/task/"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TaskUpdateView, self).get_context_data(*args, **kwargs)
+        return context
+
+
+class TaskDeleteView(vanilla.DeleteView):
+    model = Task
+    template_name = 'tracker/task/delete.html'
+    form_class = TaskForm
+    success_url = "/tracker/task/"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TaskDeleteView, self).get_context_data(*args, **kwargs)
+        return context
+
+
+@login_required
+def complete_task(request):
+
+    task_id = None
+    if request.method == 'GET':
+        task_id = request.GET['task_id']
+    if task_id:
+        task = Task.objects.get(id=int(task_id))
+        if task:
+            task.status = Task.STATUS_VALUES.COMPLETED
+            task.save()
+    return HttpResponse(task.get_status_display())
