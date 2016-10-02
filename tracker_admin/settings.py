@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'tracker',
 ]
 
@@ -83,6 +84,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'tracker_admin.wsgi.application'
+
+
+# If DEBUG, all the use of an env var to serve API and web URLS from the same
+# dev server instance
+# if DEBUG:
+#     COMBINE_API_AND_WEB_URLS = os.environ.get('COMBINE_API_AND_WEB_URLS', False)
+# else:
+#     COMBINE_API_AND_WEB_URLS = False
+COMBINE_API_AND_WEB_URLS = True
 
 
 # Database
@@ -129,3 +139,8 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL = '/login/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}

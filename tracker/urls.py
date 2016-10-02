@@ -1,6 +1,8 @@
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls import include, url
 
-
+from api.urls import api_v1_urlpatterns
 from tracker import views
 
 urlpatterns = [
@@ -16,4 +18,5 @@ urlpatterns = [
     # url(r'^task/$', views.add_task(), name='add_task'),
     # url(r'^add_task/$', views.add_task(), name='add_task'),
 ]
+
 
